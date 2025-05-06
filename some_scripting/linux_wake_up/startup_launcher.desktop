@@ -1,0 +1,13 @@
+# Run the following before:
+# mkdir -p ~/.config/autostart
+# nano ~/.config/autostart/startup_launcher.desktop
+
+[Desktop Entry]
+Type=Application
+Exec=python3 path/to/script.py
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name=Startup Launcher
+Comment=Your comments
+
