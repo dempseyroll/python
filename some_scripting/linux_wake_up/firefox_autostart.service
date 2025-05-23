@@ -1,0 +1,20 @@
+# Create in ~/.config/systemd/user/firefox_autostart.service. And delete this line
+[Unit]
+Description=Abrir Firefox con pestañas tras el login
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /PATH/TO/SCRIPT/test_firefox_autostart.py
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
+
+# Then close and run:
+# systemctl --user daemon-reexec
+# systemctl --user daemon-reload
+# systemctl --user enable firefox_autostart.service
+# systemctl --user start firefox_autostart.service
+# reboot
+# to debug run: journalctl --user -u firefox_autostart.service

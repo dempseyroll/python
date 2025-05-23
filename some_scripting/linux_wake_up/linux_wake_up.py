@@ -1,22 +1,25 @@
-import webbrowser
 import subprocess
 import time
+import os
+import datetime
 
 # Applications desktop open.
 subprocess.Popen(["xfce4-terminal", "--tab", "--execute", "bash"])
-subprocess.run(["/opt/sublime_text/sublime_text"])
+subprocess.Popen(["/opt/sublime_text/sublime_text"])
+subprocess.Popen(["keepassxc"])
 
-time.sleep(1)
-# Chrome URLs open
-webbrowser.register('firefox', None, webbrowser.BackgroundBrowser("/usr/bin/firefox"))
-c = webbrowser.get('firefox')
+time.sleep(2)
 
-urls = [YOUR_URLS_LIST]
-first = True
+log_file = "/tmp/firefox_autostart_test.log"
 
-for url in urls:
-	if first:
-		c.open_new(url)
-		first = False
-	else:
-		c.open_new_tab(url)
+try:
+    urls = [LIST_URLS]
+
+    with open(log_file, "a") as f:
+        f.write(f"[{datetime.datetime.now()}] Intentando lanzar Firefox...\n")
+        subprocess.Popen(["/usr/bin/firefox", "--new-instance", "--no-remote", "--url"] + urls)
+        #subprocess.Popen(["/usr/bin/firefox", "-P", "autostart", "--no-remote","--url"] + urls)
+
+except Exception as e:
+    with open(log_file, "a") as f:
+        f.write(f"[{datetime.datetime.now()}] Error: {str(e)}\n")
